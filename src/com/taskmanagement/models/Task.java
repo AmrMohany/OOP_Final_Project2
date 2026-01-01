@@ -78,4 +78,16 @@ public class Task implements Completable {
     public boolean isCompleted() { // method to check task completion status.return true if the task is completed, false otherwise
         return completed;
     }
+    
+    public boolean isOverdue() { // method to check if task deadline has passed. return true if the task is overdue, false otherwise
+        if (deadline == null || completed) {
+            return false;
+        }
+        return deadline.isBefore(LocalDate.now());
+    }
+    
+    
+    public boolean isUpcoming() { // method to identify active pending tasks. return true if the task is upcoming, false otherwise
+        return !completed && !isOverdue();
+    }
 }
