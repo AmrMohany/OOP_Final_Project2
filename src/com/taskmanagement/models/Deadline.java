@@ -1,6 +1,8 @@
 package com.taskmanagement.models;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 
 
 public class Deadline {
@@ -23,6 +25,6 @@ public class Deadline {
         if (deadline == null) {
             return Long.MAX_VALUE; // No deadline
         }
-        return LocalDate.now().until(deadline).getDays();
+        return ChronoUnit.DAYS.between(LocalDate.now(), deadline);
     }
 }
