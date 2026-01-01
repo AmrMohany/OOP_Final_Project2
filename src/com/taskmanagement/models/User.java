@@ -16,4 +16,23 @@ public class User { // This class Represents a user who owns projects and manage
         this.projects = new ArrayList<>();
         this.personalTasks = new ArrayList<>();
     }
+    
+    public String getName() { // Gets the user name
+        return name;
+    }
+    
+    
+    public void setName(String name) { // Sets the user name
+        this.name = name;
+    }
+    
+    
+    public void addProject(Project project) { // method to add projects to user
+        projects.add(project);
+    }
+    
+    
+    public List<Project> getProjects() { // method returning defensive copy
+        return new ArrayList<>(projects);
+    }
 }
