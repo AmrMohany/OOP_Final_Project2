@@ -13,9 +13,7 @@ public class Task implements Completable {
     private Priority priority;
     private boolean completed;
     
-    /**
-     * Constructor to create a new task.
-     */
+
     public Task(String title, String description, LocalDate deadline, Priority priority) {
         this.id = idCounter++;
         this.title = title;
@@ -68,5 +66,16 @@ public class Task implements Completable {
    
     public void setPriority(Priority priority) { //Sets the task priority
         this.priority = priority;
+    }
+    
+    @Override
+    public void markAsCompleted() { //method to set task completion status
+        this.completed = true;
+    }
+    
+
+    @Override
+    public boolean isCompleted() { // method to check task completion status.return true if the task is completed, false otherwise
+        return completed;
     }
 }
