@@ -44,4 +44,13 @@ public class Project {
         }
         return upcomingTasks;
     }
+    
+    @Override
+    public String toString() { // method to display project name and task counts
+        return "Project{" +
+                "name='" + name + '\'' +
+                ", totalTasks=" + tasks.size() +
+                ", upcomingTasks=" + getUpcomingTasks().size() +
+                '}';
+    }
 }
