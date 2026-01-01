@@ -54,4 +54,26 @@ public class User { // This class Represents a user who owns projects and manage
     public List<Task> getPersonalTasks() { // method returning defensive copy
         return new ArrayList<>(personalTasks);
     }
+    
+    public List<Task> getAllUpcomingTasks() { // Gets all upcoming tasks across all projects and personal tasks
+
+        List<Task> allUpcomingTasks = new ArrayList<>();
+
+
+        for (Project project : projects) {
+            allUpcomingTasks.addAll(project.getUpcomingTasks());
+        }
+
+        
+        for (Task task : personalTasks) {
+
+            if (task.isUpcoming()) {
+
+                allUpcomingTasks.add(task);
+            }
+        }
+
+        return allUpcomingTasks;
+
+    }
 }
