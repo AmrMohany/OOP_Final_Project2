@@ -76,4 +76,14 @@ public class User { // This class Represents a user who owns projects and manage
         return allUpcomingTasks;
 
     }
+    
+    @Override
+    public String toString() { // method return formatted string with user details
+        return "User{" +
+                "name='" + name + '\'' +
+                ", projects=" + projects.size() +
+                ", personalTasks=" + personalTasks.size() +
+                ", upcomingTasks=" + getAllUpcomingTasks().size() +
+                '}';
+    }
 }
