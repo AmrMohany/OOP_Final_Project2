@@ -35,7 +35,10 @@ public class Task implements Completable {
     
     
     public void setTitle(String title) { //Sets the task title
-        this.title = title;
+        if (title==null || title.trim().isEmpty()) {
+        	throw new IllegalArgumentException ("Title can't be Empty");
+        }
+    	this.title = title;
     }
     
     
