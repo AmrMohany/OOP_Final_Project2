@@ -47,7 +47,7 @@ public class User { // This class Represents a user who owns projects and manage
     }
     
     
-    public void completeTask(Task task) {
+    public void completeTask(Task task) { // method to mark tasks as completed and Notify The user
         task.markAsCompleted();
         NotificationService.notifyTaskCompleted(task);
     }
