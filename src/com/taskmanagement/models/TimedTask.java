@@ -20,7 +20,17 @@ public class TimedTask extends Task { //Create TimedTask class that inherits fro
     
     
     public void setEstimatedDuration(int estimatedDuration) { // Sets the estimated duration
-        this.estimatedDuration = estimatedDuration;
+        
+    	
+    	if (estimatedDuration < 0) { // Validation 1 : to make sure the time won't be negative
+    		throw new IllegalArgumentException("Estimated duration can't be negative");
+    	}
+    	
+    	if (estimatedDuration == 0) { // Validation 2 : to make sure the time won't be Zero
+    		throw new IllegalArgumentException("Estimated duration must be greater than 0");
+    	}
+    	
+    	this.estimatedDuration = estimatedDuration;
     }
     
    
