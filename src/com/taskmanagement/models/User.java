@@ -1,5 +1,6 @@
 package com.taskmanagement.models;
 
+import com.taskmanagement.utiles.NotificationService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,9 +47,11 @@ public class User { // This class Represents a user who owns projects and manage
     }
     
     
-    public void completeTask(Task task) { // method to mark tasks as completed
+    public void completeTask(Task task) {
         task.markAsCompleted();
+        NotificationService.notifyTaskCompleted(task);
     }
+
     
     
     public List<Task> getPersonalTasks() { // method returning defensive copy
