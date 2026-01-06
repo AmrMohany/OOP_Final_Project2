@@ -8,28 +8,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-
 public class CSVExporter {
     
-	
     public static void exportTasksToCSV(List<Task> tasks, String filename) throws IOException {
-        FileWriter writer = new FileWriter(filename);
-        
-        // header
-        writer.append("Task ID,Title,Description,Deadline,Priority,Completion Status\n");
-        
-        // data
-        for (Task task : tasks) {
-            writer.append(String.valueOf(task.getId())).append(",");
-            writer.append(escapeCSV(task.getTitle())).append(",");
-            writer.append(escapeCSV(task.getDescription())).append(",");
-            writer.append(task.getDeadline() != null ? task.getDeadline().toString() : "No Deadline").append(",");
-            writer.append(task.getPriority().toString()).append(",");
-            writer.append(task.isCompleted() ? "Completed" : "Pending").append("\n");
+
+        // try-with-resources to ensure the file closes automatically after completion
+        try (FileWriter writer = new FileWriter(filename)) {
+
+            // header
+            writer.append("Task ID,Title,Description,Deadline,Priority,Completion Status\n");
+            
+            // data
+            for (Task task : tasks) {
+                writer.append(String.valueOf(task.getId())).append(",");
+                writer.append(escapeCSV(task.getTitle())).append(",");
+                writer.append(escapeCSV(task.getDescription())).append(",");
+                writer.append(task.getDeadline() != null ? task.getDeadline().toString() : "No Deadline").append(",");
+                writer.append(task.getPriority().toString()).append(",");
+                writer.append(task.isCompleted() ? "Completed" : "Pending").append("\n");
+            }
         }
-        
-        writer.flush();
-        writer.close();
         
         System.out.println("✓ Tasks exported successfully to " + filename);
         System.out.println("  Total tasks exported: " + tasks.size());
@@ -37,56 +35,56 @@ public class CSVExporter {
     }
     
     
-     // Exports comprehensive user and task information to a detailed CSV file.
+    // Exports comprehensive user and task information to a detailed CSV file.
     public static void exportComprehensiveDataToCSV(List<User> users, String filename) throws IOException {
-        FileWriter writer = new FileWriter(filename);
-        
-        // Write comprehensive CSV header
-        writer.append("User ID,User Name,Project Name,Task ID,Task Title,Task Description,");
-        writer.append("Deadline,Days Until Deadline,Priority,Task Status,Completion Status,");
-        writer.append("Is Overdue,Is Upcoming,Task Type\n");
-        
-        // Counter for user IDs
-        int userId = 1;
-        
-        // Process each user
-        for (User user : users) {
-            String userName = user.getName();
-            String userIdStr = String.valueOf(userId);
+
+        // try-with-resources to ensure the file closes automatically after completion
+        try (FileWriter writer = new FileWriter(filename)) {
+
+            // Write comprehensive CSV header
+            writer.append("User ID,User Name,Project Name,Task ID,Task Title,Task Description,");
+            writer.append("Deadline,Days Until Deadline,Priority,Task Status,Completion Status,");
+            writer.append("Is Overdue,Is Upcoming,Task Type\n");
             
-            // Track if user has any tasks
-            boolean hasAnyTasks = false;
+            // Counter for user IDs
+            int userId = 1;
             
-            // Export tasks from all projects
-            for (Project project : user.getProjects()) {
-                String projectName = project.getName();
+            // Process each user
+            for (User user : users) {
+                String userName = user.getName();
+                String userIdStr = String.valueOf(userId);
                 
-                for (Task task : project.getAllTasks()) {
-                    hasAnyTasks = true;
-                    writeTaskRow(writer, userIdStr, userName, projectName, task);
+                // Track if user has any tasks
+                boolean hasAnyTasks = false;
+                
+                // Export tasks from all projects
+                for (Project project : user.getProjects()) {
+                    String projectName = project.getName();
+                    
+                    for (Task task : project.getAllTasks()) {
+                        hasAnyTasks = true;
+                        writeTaskRow(writer, userIdStr, userName, projectName, task);
+                    }
                 }
+                
+                // Export personal tasks (not in any project)
+                for (Task task : user.getPersonalTasks()) {
+                    hasAnyTasks = true;
+                    writeTaskRow(writer, userIdStr, userName, "Personal Tasks", task);
+                }
+                
+                // If user has no tasks, still show the user in the CSV
+                if (!hasAnyTasks) {
+                    writer.append(userIdStr).append(",");
+                    writer.append(escapeCSV(userName)).append(",");
+                    writer.append("No Projects,");
+                    writer.append("N/A,No Tasks,No tasks assigned yet,");
+                    writer.append("N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A\n");
+                }
+                
+                userId++;
             }
-            
-            // Export personal tasks (not in any project)
-            for (Task task : user.getPersonalTasks()) {
-                hasAnyTasks = true;
-                writeTaskRow(writer, userIdStr, userName, "Personal Tasks", task);
-            }
-            
-            // If user has no tasks, still show the user in the CSV
-            if (!hasAnyTasks) {
-                writer.append(userIdStr).append(",");
-                writer.append(escapeCSV(userName)).append(",");
-                writer.append("No Projects,");
-                writer.append("N/A,No Tasks,No tasks assigned yet,");
-                writer.append("N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A\n");
-            }
-            
-            userId++;
         }
-        
-        writer.flush();
-        writer.close();
         
         // Calculate statistics
         int totalTasks = 0;
