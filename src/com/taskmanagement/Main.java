@@ -23,7 +23,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("╔════════════════════════════════════════════╗");
-        System.out.println("║  Task & Project Management System         ║");
+        System.out.println("║  Task & Project Management System          ║");
         System.out.println("╚════════════════════════════════════════════╝\n");
         
         boolean running = true;
@@ -53,8 +53,8 @@ public class Main {
     
     private static void showLoginMenu() {
         System.out.println("\n╔════════════════════════════════════════════╗");
-        System.out.println("║           LOGIN / REGISTRATION             ║");
-        System.out.println("╚════════════════════════════════════════════╝");
+        System.out.println("  ║           LOGIN / REGISTRATION             ║");
+        System.out.println("  ╚════════════════════════════════════════════╝");
         System.out.println("1. Create New User");
         System.out.println("2. Login as Existing User");
         System.out.println("3. View All Users");
@@ -64,8 +64,8 @@ public class Main {
     
     private static void showMainMenu() {
         System.out.println("\n╔════════════════════════════════════════════╗");
-        System.out.println("║         MAIN MENU - " + currentUser.getName());
-        System.out.println("╚════════════════════════════════════════════╝");
+        System.out.println("  ║         MAIN MENU - " + currentUser.getName());
+        System.out.println("  ╚════════════════════════════════════════════╝");
         System.out.println("1.  Create Project");
         System.out.println("2.  View All Projects");
         System.out.println("3.  Create Task for Project");
