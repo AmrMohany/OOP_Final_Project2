@@ -53,8 +53,8 @@ public class Main {
     
     private static void showLoginMenu() {
         System.out.println("\n╔════════════════════════════════════════════╗");
-        System.out.println("  ║           LOGIN / REGISTRATION             ║");
-        System.out.println("  ╚════════════════════════════════════════════╝");
+        System.out.println("║           LOGIN / REGISTRATION             ║");
+        System.out.println("╚════════════════════════════════════════════╝");
         System.out.println("1. Create New User");
         System.out.println("2. Login as Existing User");
         System.out.println("3. View All Users");
